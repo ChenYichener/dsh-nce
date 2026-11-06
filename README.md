@@ -157,9 +157,6 @@ Open **NCE** in the DSH sidebar. Four destinations: `课程` (Course) / `记忆�
 
 ## Screenshots
 
-> Some screenshots predate the single-page lesson merge; the panel chrome may differ
-> slightly from the latest version.
-
 | Course list + one-page lesson | Fillable paper with grading | Flashcards |
 | --- | --- | --- |
 | ![Course](docs/screenshots/home.png) | ![Exercise paper](docs/screenshots/lesson-exercise.png) | ![Flashcards](docs/screenshots/wordcards.png) |

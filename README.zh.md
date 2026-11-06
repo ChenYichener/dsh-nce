@@ -135,8 +135,6 @@ host 半或数据集改动需要重启 DSH（二者都缓存在宿主进程里�
 
 ## 截图
 
-> 部分截图拍摄于单课合并为一页之前，面板外观可能与最新版本略有差异。
-
 | 课程列表 + 单课一页 | 可填写练习卷与批改 | 记忆卡 |
 | --- | --- | --- |
 | ![课程](docs/screenshots/home.png) | ![练习卷](docs/screenshots/lesson-exercise.png) | ![记忆卡](docs/screenshots/wordcards.png) |
