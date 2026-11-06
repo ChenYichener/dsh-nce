@@ -1,0 +1,25 @@
+node_modules/
+.DS_Store
+*.log
+.env
+.env.*
+
+# Built-in textbook dataset: compiled from copyrighted textbook material and
+# therefore NOT published. Build it locally with `npm run build:data`
+# (see docs/DATA-CONTRACT.md); the plugin keeps working on your machine.
+data/
+
+# Internal artefacts — kept on disk, never published.
+docs/audit/
+docs/exports/
+docs/STUDY-PLAN.md
+
+# Screenshots not referenced by README.md / README.zh.md (kept on disk only).
+docs/screenshots/homework.png
+docs/screenshots/lesson-115.png
+docs/screenshots/lesson-matching.png
+docs/screenshots/lesson-table.png
+docs/screenshots/lesson.png
+docs/screenshots/planner.png
+docs/screenshots/recall.png
+docs/screenshots/voice.png

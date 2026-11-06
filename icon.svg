@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="NCE">
+  <defs>
+    <linearGradient id="nce-bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#2f6fed"/>
+      <stop offset="1" stop-color="#7c3aed"/>
+    </linearGradient>
+  </defs>
+  <rect x="2" y="2" width="60" height="60" rx="16" fill="url(#nce-bg)"/>
+  <path d="M14 20c0-2.2 1.8-4 4-4h11v32H18a4 4 0 0 1-4-4V20Z" fill="#fff" opacity=".92"/>
+  <path d="M50 20c0-2.2-1.8-4-4-4H35v32h11a4 4 0 0 0 4-4V20Z" fill="#fff" opacity=".78"/>
+  <path d="M27 14h10v36H27z" fill="#dbe6ff" opacity=".55"/>
+  <path d="M20 25h7M20 31h7M37 25h7M37 31h7" stroke="#2f6fed" stroke-width="2.4" stroke-linecap="round" opacity=".85"/>
+  <circle cx="32" cy="44" r="6.5" fill="#ffd166"/>
+  <path d="M29.6 41.2v5.6l4.6-2.8-4.6-2.8Z" fill="#7c3aed"/>
+</svg>

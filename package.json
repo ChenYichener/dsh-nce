@@ -1,0 +1,87 @@
+{
+  "name": "dsh-nce",
+  "version": "0.1.0",
+  "description": "New Concept English Book 1 study panel for DeepSeek Harness: 144 lessons on one page (video, text + vocabulary, grammar, fillable exercise papers), homework checklist, Anki-style SRS flashcards, mistake notebook, and an IPA / phonics reference with read-aloud.",
+  "type": "module",
+  "main": "index.js",
+  "exports": {
+    ".": "./index.js",
+    "./client": "./client.js",
+    "./locale/*.json": "./locale/*.json",
+    "./icon": "./icon.svg"
+  },
+  "files": [
+    "index.js",
+    "src/host/**",
+    "client.js",
+    "src/client/**",
+    "cordis.patch.yml",
+    "locale/*.json",
+    "icon.svg",
+    "README.md",
+    "README.zh.md",
+    "LICENSE",
+    "docs/*.md",
+    "scripts/**",
+    "docs/screenshots/*.png"
+  ],
+  "engines": {
+    "node": ">=20"
+  },
+  "license": "MIT",
+  "author": "chenyichen",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ChenYichener/dsh-nce.git"
+  },
+  "homepage": "https://github.com/ChenYichener/dsh-nce#readme",
+  "bugs": {
+    "url": "https://github.com/ChenYichener/dsh-nce/issues"
+  },
+  "keywords": [
+    "dsh",
+    "deepseek-harness",
+    "dsh-plugin",
+    "new-concept-english",
+    "english-learning",
+    "flashcards",
+    "srs",
+    "spaced-repetition",
+    "ipa",
+    "phonics",
+    "study-panel",
+    "exercise-paper"
+  ],
+  "dsh": {
+    "bundle": {
+      "patch": "./cordis.patch.yml"
+    },
+    "client": {
+      "platform": "web",
+      "immediately": true,
+      "inject": [
+        "@deepseek-ai/dsh-client-ui-layout",
+        "@deepseek-ai/dsh-client-ui-sidebar"
+      ]
+    }
+  },
+  "scripts": {
+    "build": "node scripts/build-client.mjs",
+    "build:check": "node scripts/build-client.mjs --check",
+    "build:data": "node scripts/build-data.mjs",
+    "build:phonetics": "node scripts/build-phonetics.mjs",
+    "build:bilibili": "node scripts/build-bilibili.mjs",
+    "check:architecture": "node scripts/check-architecture.mjs",
+    "check:fragment": "node scripts/check-fragment.mjs",
+    "test": "node scripts/test-all.mjs",
+    "test:data": "node scripts/check-data.mjs",
+    "test:paper": "node scripts/test-paper.mjs",
+    "test:paper-ui": "node scripts/test-paper-ui.mjs",
+    "test:ai-grade": "node scripts/test-ai-grade.mjs",
+    "test:host-domain": "node scripts/test-host-domain.mjs",
+    "smoke:api": "node scripts/smoke-api.mjs",
+    "test:lesson-page": "node scripts/test-lesson-page.mjs",
+    "test:mistakes": "node scripts/test-mistakes.mjs",
+    "test:explain": "node scripts/test-explain.mjs"
+  }
+}

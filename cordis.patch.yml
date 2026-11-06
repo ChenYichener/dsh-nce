@@ -1,0 +1,9 @@
+# dsh-nce bundle patch.
+#
+# One row carries both halves: the Node half mounts the /dsh-nce/api route
+# (built-in NCE1 data, SRS progress, saved lesson videos, local TTS), the
+# browser half (dsh.client manifest) registers the "NCE" sidebar entry and its
+# learning panel.
+- insert:
+    - id: dsh-nce
+      name: 'dsh-nce'
