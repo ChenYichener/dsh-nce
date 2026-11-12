@@ -1,6 +1,6 @@
 {
   "name": "dsh-nce",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "New Concept English Book 1 study panel for DeepSeek Harness: 144 lessons on one page (video, text + vocabulary, grammar, fillable exercise papers), homework checklist, Anki-style SRS flashcards, mistake notebook, and an IPA / phonics reference with read-aloud.",
   "type": "module",
   "main": "index.js",
