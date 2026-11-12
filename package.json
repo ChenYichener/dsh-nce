@@ -28,6 +28,9 @@
   "engines": {
     "node": ">=20"
   },
+  "optionalDependencies": {
+    "dsh-nce-data": "^0.1.0"
+  },
   "license": "MIT",
   "author": "chenyichen",
   "repository": {

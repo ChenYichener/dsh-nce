@@ -13,9 +13,14 @@
 
 ![NCE 课程页：左侧课程列表，右侧单课一页](docs/screenshots/home.png)
 
-> **内置教材数据不随仓库分发** —— 本仓库只有代码。课程数据由受版权保护的教材整理而来，
-> 已被 git 排除；安装后面板能加载，但课程视图需要你自己构建数据集，见
-> [内置教材数据不随仓库分发](#内置教材数据不随仓库分发)。
+## 快速开始
+
+```bash
+dsh plugin --profile <profile> add dsh-nce
+```
+
+重启 `dsh web`（或桌面端）即可——144 课数据随可选的 `dsh-nce-data` 包自动安装，
+打开面板就是有课的状态，不需要你准备教材文件，也不需要构建。
 
 ## 功能
 
@@ -75,7 +80,15 @@
 
 ## 安装
 
-### 从 GitHub 安装（推荐）
+### 从 npm 安装（推荐）
+
+```bash
+dsh plugin --profile <profile> add dsh-nce
+```
+
+课程数据随可选的 `dsh-nce-data` 包自动拉取。
+
+### 从 GitHub 安装
 
 ```bash
 dsh plugin --profile <profile> add github:ChenYichener/dsh-nce
@@ -103,21 +116,28 @@ host 半或数据集改动需要重启 DSH（二者都缓存在宿主进程里�
 | Node.js | 运行 DSH 的机器上 ≥ 20；host 半使用 `node:sqlite`，不可用时回退 JSON |
 | macOS（可选） | `/usr/bin/say` 作为离线朗读兜底；其它平台回退浏览器语音 |
 | [dsh-translate](https://github.com/ChenYichener/dsh-translate)（可选） | 提供 Edge 神经网络音色，并把翻译历史导入为句子卡 |
-| 教材数据集 | **不随仓库分发** —— 需自行构建，见下 |
+| 课程数据集 | 随可选的 `dsh-nce-data` 包自动安装 |
 
-### 内置教材数据不随仓库分发
+### 数据放在哪里
 
-《新概念英语》受版权保护。本仓库只包含插件代码；作者本机的课程数据由本人持有的教材整理而来，
-已被 `.gitignore` 的 `data/` 排除。全新克隆可以安装并加载插件，但在补齐数据前，
-课程 / 词库 / 音标视图会显示带「重试」按钮的加载错误。要真正学习，请用自己有权使用的内容构建数据集：
+课程数据单独发布为 `dsh-nce-data` 包，插件代码本身不含教材内容。解析顺序：
 
-1. 按 [docs/DATA-CONTRACT.md](docs/DATA-CONTRACT.md) 的结构（`nce1/`、`notes/`、`gwb/`）整理出结构化 JSON。
-2. 运行 `NCE_CONTENT_DIR=/path/to/nce-content npm run build:data`，写入被 gitignore 的 `data/`。
-3. 运行 `npm run build:phonetics` 生成音标 / 自然拼读数据（内容手写在脚本里，不依赖教材数据）。
-4. 重启 DSH 加载数据集。
+1. 设置了 `DSH_NCE_DATA_DIR` 就用它
+2. 插件旁的 `data/` 目录（本地构建）
+3. `dsh-nce-data` 包
 
-构建出的数据仅供个人学习使用，请勿公开传播。数据如何提取与校验见
-[docs/DATA-QUALITY.md](docs/DATA-QUALITY.md)。
+三者都不存在时面板照样能加载，只是显示带「重试」按钮的空态，不会硬报错。要换用自己的数据集，
+把 `DSH_NCE_DATA_DIR` 指向一个含有 `index.json`、符合 [docs/DATA-CONTRACT.md](docs/DATA-CONTRACT.md)
+的目录，也可以自己构建：
+
+```bash
+NCE_CONTENT_DIR=/path/to/nce-content npm run build:data
+npm run build:phonetics   # 音标 / 自然拼读，不依赖教材数据
+```
+
+数据的提取与校验方式见 [docs/DATA-QUALITY.md](docs/DATA-QUALITY.md)。课程数据仅供个人学习使用；
+如果你是权利人希望下架，提个 issue，`dsh-nce-data` 包会被取消发布——插件本身只有代码，
+搭配你自己的数据集仍可照常用。
 
 ## 使用
 
@@ -172,7 +192,7 @@ host 半或数据集改动需要重启 DSH（二者都缓存在宿主进程里�
 
 默认不上传任何数据：进度、草稿、错题本都留在本机。只有明确使用联网功能时数据才会离开本机 ——
 B 站视频内嵌、Microsoft Edge 在线音色、AI 批改（发给当前 DSH profile 配置的模型）。
-仓库本身不含教材数据集，也不含个人数据。
+插件仓库本身不含个人数据；课程数据集放在单独的 `dsh-nce-data` 包里。
 
 ## 配置
 
@@ -220,7 +240,7 @@ dsh-nce/
 
 | 现象 | 处理 |
 | --- | --- |
-| 课程列表显示加载错误 | 缺少 `data/` 数据集；按上文构建后重启 DSH |
+| 课程列表显示加载错误 | 安装 `dsh-nce-data` 包（或设置 `DSH_NCE_DATA_DIR`）后重启 DSH |
 | 改了代码没反应 | host 半（`index.js`、`src/host/`）需重启 `dsh web`；前端改动需 `npm run build` 后刷新页面 |
 | 没有声音 | 检查声音菜单；非 macOS 需要浏览器语音，在线 Edge 音色需要翻译插件和网络 |
 | AI 批改不可用 | profile 没有默认模型（或调用失败）；练习卷会自动退回系统判分，也可手动改判 |
@@ -232,7 +252,7 @@ dsh-nce/
 - 面板本身支持 macOS / Windows / Linux（DSH 内的浏览器界面）；`say` 朗读兜底仅 macOS，
   其它平台回退浏览器语音。
 - 针对 `dsh 0.2.x` 使用的插件清单开发；若该清单或客户端模块表变化，可能需要更新插件。
-- 教材数据集由使用者自备，构建完成后与平台无关。
+- 课程数据集与平台无关，运行时按上文三个位置依次解析。
 
 ## 相关 DSH 插件
 
@@ -247,6 +267,7 @@ dsh-nce/
 ## 许可证
 
 [MIT](LICENSE) © 2026 chenyichen。插件代码采用 MIT 许可，且**不包含任何教材内容**：
-课程数据集由使用者从自己持有的材料在本地构建。《新概念英语》及相关教材、练习与音频的版权
+课程数据集单独发布为 `dsh-nce-data` 包，随插件自动安装，仅供个人学习使用。《新概念英语》及相关教材、练习与音频的版权
 归各自作者与出版方所有；内嵌视频播放器播放的是 B 站的第三方视频。
+如果你是权利人希望下架，提个 issue，`dsh-nce-data` 包会被取消发布，插件本身不受影响。
 请只在你有权使用的内容上使用本插件。

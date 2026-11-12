@@ -14,9 +14,15 @@ English · [简体中文](README.zh.md)
 
 ![The NCE course view: lesson list on the left, one-page lesson on the right](docs/screenshots/home.png)
 
-> **The textbook data is not bundled** — this repository is code only. The lesson
-> dataset is compiled from copyrighted material and is excluded from git; see
-> [Textbook data is not bundled](#textbook-data-is-not-bundled).
+## Quick start
+
+```bash
+dsh plugin --profile <profile> add dsh-nce
+```
+
+Restart `dsh web` (or the desktop app) — the 144-lesson dataset arrives with the
+optional `dsh-nce-data` package, so the panel is populated on first open. No
+textbook files to supply, no build step.
 
 ## Features
 
@@ -90,7 +96,15 @@ English · [简体中文](README.zh.md)
 
 ## Install
 
-### From GitHub (recommended)
+### From npm (recommended)
+
+```bash
+dsh plugin --profile <profile> add dsh-nce
+```
+
+The lesson dataset is pulled in automatically as the optional `dsh-nce-data` package.
+
+### From GitHub
 
 ```bash
 dsh plugin --profile <profile> add github:ChenYichener/dsh-nce
@@ -119,26 +133,31 @@ need a DSH restart because both are cached in the host process.
 | Node.js | ≥ 20 on the machine running DSH; the host uses `node:sqlite` and falls back to JSON when unavailable |
 | macOS (optional) | `/usr/bin/say` is the offline read-aloud fallback; other platforms use browser speech |
 | [dsh-translate](https://github.com/ChenYichener/dsh-translate) (optional) | Adds the Edge neural voices and imports translation history as sentence cards |
-| Textbook dataset | **Not bundled** — build it yourself, see below |
+| Dataset | Installed automatically as the optional `dsh-nce-data` package |
 
-### Textbook data is not bundled
+### Where the dataset lives
 
-New Concept English is copyrighted. This repository contains only plugin code; the
-lesson data in the author's local install is compiled from their own copies of the
-books and is excluded from git (`.gitignore` has `data/`). A fresh clone installs and
-mounts, but lesson, word-bank and phonetics views show a load error with a Retry button
-until you supply data. To study for real, build a dataset from material you own:
+The lesson data ships as a separate package, `dsh-nce-data`, so the plugin code stays
+free of textbook content. Resolution order:
 
-1. Extract the content into structured JSON that follows
-   [docs/DATA-CONTRACT.md](docs/DATA-CONTRACT.md) (`nce1/`, `notes/`, `gwb/`).
-2. Run `NCE_CONTENT_DIR=/path/to/nce-content npm run build:data` — it writes the
-   gitignored `data/` directory.
-3. Run `npm run build:phonetics` for the IPA / phonics reference (hand-written in the
-   script, so it needs no textbook data).
-4. Restart DSH to load the dataset.
+1. `DSH_NCE_DATA_DIR` if set
+2. `data/` next to the plugin (local builds)
+3. the `dsh-nce-data` package
 
-The compiled data is for personal use only — do not publish it. See
-[docs/DATA-QUALITY.md](docs/DATA-QUALITY.md) for how it is extracted and verified.
+If none is present the panel still mounts and shows a Retry button instead of failing
+hard. To use your own dataset, point `DSH_NCE_DATA_DIR` at a directory holding
+`index.json` that follows [docs/DATA-CONTRACT.md](docs/DATA-CONTRACT.md), and build one
+from material you own:
+
+```bash
+NCE_CONTENT_DIR=/path/to/nce-content npm run build:data
+npm run build:phonetics   # IPA / phonics reference; needs no textbook data
+```
+
+See [docs/DATA-QUALITY.md](docs/DATA-QUALITY.md) for how the dataset is extracted and
+verified. The dataset is provided for personal study; if you are a rights holder and
+want it removed, open an issue and the `dsh-nce-data` package will be unpublished —
+the plugin itself is code-only and keeps working with your own dataset.
 
 ## Usage
 
@@ -192,14 +211,15 @@ Deeper contracts: [PLUGIN-ARCH](docs/PLUGIN-ARCH.md) ·
 | What | Where |
 | --- | --- |
 | Learning progress (status, SRS, streak, video URLs) | `~/.dsh/dsh-nce/nce.sqlite` (+ `-wal` / `-shm`), legacy `~/.dsh/dsh-nce/progress.json` |
-| Paper drafts / homework ticks / mistakes / UI state | `localStorage` → `dsh-nce/paper/v1/lesson-<n>`, `dsh-nce/homework/v1/lesson-<n>`, `dsh-nce/mistakes/v1`, `dsh-nce/nav|scroll|ui|prefs/v1/*` |
+| Paper drafts / homework ticks / mistakes / UI state | `localStorage` → `dsh-nce/paper/v1/lesson-<n>`, `dsh-nce/homework/v1/lesson-<n>`, `dsh-nce/mistakes/v1`, `dsh-nce/nav\|scroll\|ui\|prefs/v1/*` |
 | Read-aloud cache / translation history (read-only) | `~/.dsh/dsh-translate/tts-cache/` (or `~/.dsh/dsh-nce/tts-cache/`), `~/.dsh/dsh-translate/history.json` |
-| Course content | The plugin's `data/` directory, read-only; **not published in this repo** |
+| Course content | Read-only; resolved from `DSH_NCE_DATA_DIR`, a local `data/`, or the `dsh-nce-data` package |
 
 Nothing is uploaded by default: progress, drafts, and the mistake notebook stay on the
 local machine. Data leaves it only for features that need the network — the Bilibili
 video embed, Microsoft Edge voices, and AI grading (sent to the model configured in
-your DSH profile). The repository ships no lesson dataset and no personal data.
+your DSH profile). The plugin repository ships no personal data; the lesson dataset
+lives in the separate `dsh-nce-data` package.
 
 ## Configuration
 
@@ -249,7 +269,7 @@ dsh-nce/
 
 | Symptom | Fix |
 | --- | --- |
-| Course list shows a load error | The `data/` dataset is missing; build it (see above) and restart DSH |
+| Course list shows a load error | Install the `dsh-nce-data` package (or set `DSH_NCE_DATA_DIR`) and restart DSH |
 | Code changes do nothing | Host half (`index.js`, `src/host/`) is cached — restart `dsh web`; client changes need `npm run build` + page refresh |
 | No sound | Check the voice menu; non-macOS needs browser speech, and online Edge voices need the translation plugin plus network |
 | AI grading says unavailable | The profile has no default model (or the call failed); the paper falls back to system grading and verdicts can be overridden manually |
@@ -262,7 +282,7 @@ dsh-nce/
   `say` read-aloud fallback is macOS-only, other platforms fall back to browser speech.
 - Built against the DSH plugin manifest used by `dsh 0.2.x`; a change to that manifest
   or to the client module table could require a plugin update. The textbook dataset is
-  bring-your-own and platform-independent once built.
+  platform-independent and resolved at runtime from the three locations listed above.
 
 ## Related DSH plugins
 
