@@ -7,10 +7,10 @@ English · [简体中文](README.zh.md)
 ![DSH plugin](https://img.shields.io/badge/DSH-plugin-6C4CF1)
 ![Platform](https://img.shields.io/badge/platform-macOS%20%7C%20Windows%20%7C%20Linux-lightgrey)
 
-> A New Concept English Book 1 study panel that lives in the DeepSeek Harness
-> sidebar: 144 lessons on one scrollable page, Anki-style SRS flashcards, a mistake
-> notebook, an IPA / phonics reference, and fillable exercise papers graded by your
-> own model. The host half serves `/dsh-nce/api`; the browser half renders the panel.
+**144 New Concept English Book 1 lessons in one DSH sidebar panel** — read a lesson,
+> drill its words, then have your own model grade the exercise paper. One command is
+the whole setup: no build step, no textbook files to hunt down, no second account to
+log into.
 
 ![The NCE course view: lesson list on the left, one-page lesson on the right](docs/screenshots/home.png)
 
@@ -23,6 +23,16 @@ dsh plugin --profile <profile> add dsh-nce
 Restart `dsh web` (or the desktop app) — the 144-lesson dataset arrives with the
 optional `dsh-nce-data` package, so the panel is populated on first open. No
 textbook files to supply, no build step.
+
+| | |
+| --- | --- |
+| **First open gives you** | 144 lessons (video / text + vocabulary / grammar / fillable practice), Anki-style SRS cards, a mistake notebook, an IPA reference, and worksheets graded by your default model |
+| **Good fit if** | you're studying Book 1 and want one page per lesson plus a paper you actually fill in |
+| **Not a fit if** | you want Books 2–4 (not covered), a standalone web app (this is a DSH panel), or a deck you can export to Anki (SRS here is in-panel only) |
+
+> If this saves you a few evenings, a star is the only signal I get that it's worth
+> maintaining — it also tells the next person searching "dsh plugin" that this one
+> is used.
 
 ## Features
 
