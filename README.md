@@ -8,9 +8,9 @@ English · [简体中文](README.zh.md)
 ![Platform](https://img.shields.io/badge/platform-macOS%20%7C%20Windows%20%7C%20Linux-lightgrey)
 
 **144 New Concept English Book 1 lessons in one DSH sidebar panel** — read a lesson,
-> drill its words, then have your own model grade the exercise paper. One command is
-the whole setup: no build step, no textbook files to hunt down, no second account to
-log into.
+drill its words, then have your own model grade the exercise paper. One command is the
+whole setup: no build step, no textbook files to hunt down, no second account to log
+into.
 
 ![The NCE course view: lesson list on the left, one-page lesson on the right](docs/screenshots/home.png)
 
