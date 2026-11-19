@@ -76,6 +76,7 @@
     "build:bilibili": "node scripts/build-bilibili.mjs",
     "check:architecture": "node scripts/check-architecture.mjs",
     "check:fragment": "node scripts/check-fragment.mjs",
+    "check:screenshots": "node scripts/check-screenshots.mjs",
     "test": "node scripts/test-all.mjs",
     "test:data": "node scripts/check-data.mjs",
     "test:paper": "node scripts/test-paper.mjs",

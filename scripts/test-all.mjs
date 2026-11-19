@@ -13,6 +13,7 @@
  *  10. AI-teacher grading parser/prompts (`test-ai-grade`)
  *  11. pure host domain units (`test-host-domain`)
  *  12. host HTTP API through the real plugin entry with isolated HOME (`smoke-api`)
+ *  13. storefront screenshots are declared, present, and git-tracked (`check-screenshots`)
  *
  * Usage: node scripts/test-all.mjs
  *
@@ -46,6 +47,7 @@ const steps = [
   { name: 'AI grading', args: ['scripts/test-ai-grade.mjs'] },
   { name: 'host domain', args: ['scripts/test-host-domain.mjs'] },
   { name: 'host API', args: ['scripts/smoke-api.mjs'], isolatedHome: true },
+  { name: 'storefront screenshots', args: ['scripts/check-screenshots.mjs'] },
 ]
 
 const startedAt = Date.now()
